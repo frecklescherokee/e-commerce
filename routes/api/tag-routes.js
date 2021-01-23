@@ -39,12 +39,15 @@ router.get('/:id', (req, res) => {
     ],
     include: [
       {
-        model: Product,
+      model: Product,
       attributes: ['product_name'],
       through: ProductTag,
       as: 'tagged_products'
       }
-    ]
+    ],
+    where: {
+      id: req.params.id
+  }
   })
   .then(dbTagData => {
     if (!dbTagData) {
